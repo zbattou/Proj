@@ -17,6 +17,8 @@ int main(int argv, char* args[])
 
     RenderWindow window("GAME v1.0", 1280, 720);
 
+    SDL_Texture* grassTexture = window.loadTexture("path");
+
     bool gameRunning = true;
 
     SDL_Event event;
@@ -29,6 +31,9 @@ int main(int argv, char* args[])
             if (event.type == SDL_QUIT)
                 gameRunning = false;
         }
+        window.clear();
+        window.render(grassTexture);
+        window.display();
     }
 
     window.cleanUp();
