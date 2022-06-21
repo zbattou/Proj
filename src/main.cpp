@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "RenderWindow.hpp"
+#include "Entity.hpp"
 
 using namespace std;
 
@@ -17,7 +18,10 @@ int main(int argv, char* args[])
 
     RenderWindow window("GAME v1.0", 1280, 720);
 
-    SDL_Texture* grassTexture = window.loadTexture("path");
+    SDL_Texture* grassTexture = window.loadTexture("res/grasstext.png");
+    //SDL_Texture* slimeTexture = window.loadTexture("res/slime.png");
+
+    Entity ground0(400,400,grassTexture);
 
     bool gameRunning = true;
 
@@ -32,7 +36,7 @@ int main(int argv, char* args[])
                 gameRunning = false;
         }
         window.clear();
-        window.render(grassTexture);
+        window.render(ground0);
         window.display();
     }
 
