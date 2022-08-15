@@ -16,7 +16,7 @@ RenderWindow::RenderWindow(const char* title, int w, int h)
 		std::cout << "Window failed to init. Error: " << SDL_GetError() << std::endl;
 	}
 
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED && SDL_RENDERER_PRESENTVSYNC);
 }
 SDL_Texture* RenderWindow::loadTexture(const char* file_path)
 {
@@ -45,8 +45,8 @@ void RenderWindow::render(Entity& p_entity)
 	src.h = p_entity.getCurrentFrame().h;
 
 	SDL_Rect dst;
-	dst.x = p_entity.getX();
-	dst.y =	p_entity.getY();
+	dst.x = p_entity.getPos().x;
+	dst.y =	p_entity.getPos().y;
 	dst.w = p_entity.getCurrentFrame().w * 4;
 	dst.h = p_entity.getCurrentFrame().h * 4;
 

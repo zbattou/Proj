@@ -2,9 +2,11 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <iostream>
+#include <vector>
 
 #include "RenderWindow.hpp"
 #include "Entity.hpp"
+#include "Utils.hpp"
 
 using namespace std;
 
@@ -18,10 +20,13 @@ int main(int argv, char* args[])
 
     RenderWindow window("GAME v1.0", 1280, 720);
 
-    SDL_Texture* grassTexture = window.loadTexture("res/grasstext.png");
-    //SDL_Texture* slimeTexture = window.loadTexture("res/slime.png");
+    SDL_Texture* grassTexture = window.loadTexture("res/grass.png");
+    SDL_Texture* slimeTexture = window.loadTexture("res/slime.png");
 
-    Entity ground0(400,400,grassTexture);
+    std::vector<Entity> entities = {
+        Entity(Vector2f(400,400),grassTexture),
+        Entity(Vector2f(500,500),slimeTexture)
+    };
 
     bool gameRunning = true;
 
@@ -36,7 +41,13 @@ int main(int argv, char* args[])
                 gameRunning = false;
         }
         window.clear();
-        window.render(ground0);
+        for(Entity& e: entities)
+        {
+            window.render(e);
+        }
+
+        std::cout << utils::hireTimeInSeconds() << std::endl;
+
         window.display();
     }
 
