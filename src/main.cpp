@@ -32,14 +32,31 @@ int main(int argv, char* args[])
 
     SDL_Event event;
 
+    const float timeStep = 0.01f;
+    float accum = 0.0f;
+    float currentTime = utils::hireTimeInSeconds();
+
     while (gameRunning)
     {
-        // Get our controls and events
-        while (SDL_PollEvent(&event))
+
+        float newTime = utils::hireTimeInSeconds();
+        float frametime = newTime - currentTime ;
+        currentTime = newTime;
+        accum += frametime
+        while(accum >= timeStep)
         {
-            if (event.type == SDL_QUIT)
-                gameRunning = false;
+
+            // Get our controls and events
+            while (SDL_PollEvent(&event))
+            {
+                if (event.type == SDL_QUIT)
+                    gameRunning = false;
+            }
+
+            accum -= timeStep
+
         }
+        const float alpha = accum/timeStep;
         window.clear();
         for(Entity& e: entities)
         {
